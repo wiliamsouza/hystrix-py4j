@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+version = '0.1.0'
+
+project.ext {
+    mainClass = 'com.github.wiliamsouza.hystrix.py.HystrixPython'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile files(py4jHome + 'py4j0.8.2.1.jar')
+    compile group: 'com.netflix.hystrix', name: 'hystrix-core', version: '1.4.5'
+}
+
+jar {
+    from {configurations.compile.collect {zipTree(it)}}
+    manifest {
+        attributes('Implementation-Title': 'Netflix Hystrix Python', 'Implementation-Version': version, 'Main-Class': project.mainClass)
+    }
+}
+
+task startHystrixPython(dependsOn: 'classes', type: JavaExec) {
+    main = project.mainClass
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
