@@ -44,8 +44,7 @@ Get the code:
 git clone https://github.com/wiliamsouza/hystrix-py4j.git .
 ```
 
-Build Java source code
-----------------------
+Build Java code:
 
 ```
 gradle build
