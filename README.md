@@ -1,92 +1,81 @@
-Apollo agent
+hystrix-py4j
 ============
 
-Apollo agent is a Java application and uses [gradle](http://www.gradle.org/)
-as it's build system.
+A Netflix Hystrix in Python using py4j.
+
+What is Hystrix?
+----------------
+
+For more information see the [Netflix Hystrix]
+(https://github.com/Netflix/Hystrix/wiki) Wiki documentation.
+
+
+How it works
+------------
+
+To know more see the [Netflix Hystrix]
+(https://github.com/Netflix/Hystrix/wiki/How-it-Works) Wiki How it works
+section documentation.
+
+
+Features
+--------
+
+It is a test using py4j.
 
 Dependecies
 -----------
 
- * JDK 1.6.0_45
- * Graddle 1.10
+ * JDK 1.8.0_45
+ * Graddle 2.3
 
-Get the code
+Installation
 ------------
 
+Create a virtualenv:
+
 ```
-git clone https://github.com/wiliamsouza/apollo-agent.git
-cd apollo-agent
+mkproject --python=fullpath_to_python_3.4> hystrix-py4j
 ```
 
-Build source code
------------------
+Get the code:
 
-Edit `gradle.build` and change `androidHome` to point to android sdk folder.
+```
+git clone https://github.com/wiliamsouza/hystrix-py4j.git .
+```
+
+Build Java source code
+----------------------
 
 ```
 gradle build
 ```
 
-It will download project dependencies, build the souce code and generate
-an excutable Jar inside `build/libs/agent-<verion>.jar`.
+It will download project dependencies, build the souce code.
 
-Run tests
----------
+Install Python code:
 
 ```
-gradle test
+python setup.py develop
 ```
 
-Check for bugs
---------------
+The last command enter your code in "Development Mode" it creates an
+`egg-link` in your virtualenv's `site-packages` making it available
+on this environment `sys.path`. For more info see [setuptools development-mode]
+(https://pythonhosted.org/setuptools/setuptools.html#development-mode)
+
+Development and test dependencies
+---------------------------------
+
+`setup.py` will handle test dependencies, to install development use:
 
 ```
-gradle check
+pip install -e .[dev]
 ```
 
-It will run `FindBugs` and generate a report inside
-`build/reports/findbugs/main.html`
-
-Troubleshooting
----------------
-
-libstdc++.so.6:
-
-If you get an error like:
-```
-adb: error while loading shared libraries: libstdc++.so.6: cannot open
-shared object file: No such file or directory
-```
-On ubuntu 14.04 install:
+Tests
+-----
 
 ```
-sudo apt-get install lib32stdc++6
-```
-
-findbug:
-
-```
-FindBugs encountered an error.
-```
-
-Using java 1.8 as findbug site says "Some classfiles compiled for Java 1.8
-give FindBugs problems, the next major release of FindBugs will handle Java
-1.8 classfiles".
-
-udev rules:
-
-Apollo agent ships with an intial udev rules
-`agent/etc/udev/rules.d/51-android.rules` it sets device group to
-`plugdev` and change the mode to `0666`.
-
-To reload rules run:
-
-```
-udevadm control --reload-rules
-```
-
-To monitor run:
-
-```
-udevadm monitor --environment --udev
+python setup.py test
 ```
