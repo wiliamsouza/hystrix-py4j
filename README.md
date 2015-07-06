@@ -3,48 +3,16 @@ hystrix-py4j
 
 A Netflix Hystrix in Python using py4j.
 
-What is Hystrix?
-----------------
+This is an exploration path instead of porting everything maybe binding to
+Java code would make the process of having hystrix running on Python fast.
 
-For more information see the [Netflix Hystrix]
-(https://github.com/Netflix/Hystrix/wiki) Wiki documentation.
-
-
-How it works
-------------
-
-To know more see the [Netflix Hystrix]
-(https://github.com/Netflix/Hystrix/wiki/How-it-Works) Wiki How it works
-section documentation.
-
-Features
---------
-
-It is a test using py4j.
-It's **ALPHA** version and only support launching a group of commands inside
-an executor pool.
-
-* Execute synchronous commands.
-* Execute asynchronous commands.
-* Execute asynchronous commands and attach a callback.
-
-
-Requirements
-------------
-
-It depends on [concurrent.futures]
-(https://docs.python.org/3/library/concurrent.futures.html), new in Python
-version 3.2 and [enum]
-(https://docs.python.org/3.4/library/enum.html), new in Python version 3.4.
-It uses [futures](https://pypi.python.org/pypi/futures) and
-[enum34](https://pypi.python.org/pypi/enum34/) backports to run in Python
-version 2.7, 3.3 and 3.4.
 
 Dependecies
 -----------
 
  * JDK 1.8.0_45
  * Graddle 2.3
+
 
 Installation
 ------------
@@ -80,6 +48,7 @@ The last command enter your code in "Development Mode" it creates an
 on this environment `sys.path`. For more info see [setuptools development-mode]
 (https://pythonhosted.org/setuptools/setuptools.html#development-mode)
 
+
 Development and test dependencies
 ---------------------------------
 
@@ -88,6 +57,7 @@ Development and test dependencies
 ```
 pip install -e .[dev]
 ```
+
 
 Tests
 -----
@@ -104,40 +74,6 @@ Run tests:
 python setup.py test
 ```
 
-Hello world
------------
-
-Code to be isolated is wrapped inside the `run()` method of a `hystrix.Command` similar to the following:
-
-```python
-from hystrix import Command
-
-class HelloWorldCommand(Command):
-    def run(self):
-        return 'Hello World'
-```
-
-This command could be used like this:
-
-```python
-command = HelloCommand()
-
-# synchronously
-print(command.execute())
-'Hello World'
-
-# asynchronously
-future = command.queue()
-print(future.result())
-'Hello Wold'
-
-# callback
-def print_result(future)
-     print(future.result())
-
-future = command.observe()
-future.add_done_callback(print_result)
-```
 
 LICENSE
 -------
